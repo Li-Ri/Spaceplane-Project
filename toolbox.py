@@ -255,9 +255,4 @@ def control_graph(u,t):
     plt.ylabel('Throttle')
     plt.show()
 
-u =[ 1.        ,  1.        ,  1.        ,  1.        ,  0.69976436,
-        0.77309885,  1.        ,  1.        ,  1.        ,  1.        ,
-       -1.        ,  1.        ]
 
-t = 24*35*3600
-control_graph(u,t)
