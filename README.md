@@ -18,7 +18,6 @@ This is the function that calculates the delta-v required for any transfer and i
 
 This function has the inputs of both initial and final positions and when calling the solver weights the solvers final position (in orbital elements) with the target positions and optimizer tries to optimize this value by altering the control node 'u'. When the constraint function returns an approxiamation closest to zero for all 3 weighted orbital elements it has found the optimal control and it reassigns it the control node 'u'.  
 
-# Spaceplane-Project
 
 
 
