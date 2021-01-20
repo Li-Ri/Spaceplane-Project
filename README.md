@@ -10,7 +10,7 @@ libraries used: Numpy
 
 This function was built using the Cowells method of account for perturbative forces where the addition of accelerations for thrusts, J2, Atmospheric drag are all accounted for to be later called by the function 'solver'.
 
-# dv
+# Objective
 
 This is the function that calculates the delta-v required for any transfer and is the minimization function that we are trying to achieve.
 
