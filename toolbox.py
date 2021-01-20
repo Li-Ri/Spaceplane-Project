@@ -1,5 +1,5 @@
 import numpy as np 
-import dictionary as dy
+import central_body_constants as dy
 import math
 import matplotlib.pyplot as plt
 from scipy.interpolate import interp1d
