@@ -30,3 +30,9 @@ This simulation shows the model finding the optimal trajactory for a high thrust
 
 ![alt text](simulations/low_thrust_elements.png)
 Low Thrust showed similar behaviour to the High thrust image except with manay more revolutions which is to be expected as the thrust only allows for substantial increase of acceleration over a given amount of time. What is more interesting is observing the fuel consumption along with the behaviour of the flight eccentricity and flight path angle. the former remaining very circular for the entire transfer as well as the flight path angle.
+
+# Orbit Decay
+
+When accounting for Perturbations for J2, atmospheric pressure and thrust, the amount of initial thrust the spaceplane has is critical for it to remain in orbit. Below can be seen if insufficient thrust is applied to the craft.
+![alt text](simulations/deorbit.png)
+with cach revolution of the orbit of the craft is slowly decaying and will eventually crash.
