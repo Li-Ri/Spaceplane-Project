@@ -16,8 +16,17 @@ This is the function that calculates the delta-v required for any transfer and i
 
 # Constraint
 
-This function has the inputs of both initial and final positions and when calling the solver weights the solvers final position (in orbital elements) with the target positions and optimizer tries to optimize this value by altering the control node 'u'. When the constraint function returns an approxiamation closest to zero for all 3 weighted orbital elements it has found the optimal control and it reassigns it the control node 'u'.  
+This function has the inputs of both initial and final positions and when calling the solver weights the solvers final position (in orbital elements) with the target positions and optimizer tries to optimize this value by altering the control node 'u'. When the constraint function returns an approxiamation closest to zero for all 3 weighted orbital elements it has found the optimal control and it reassigns it the control node 'u'.
 
+# Results
 
+## High Thrust
 
+![alt text](simulations/highthrust_10000.png)
 
+This simulation shows the model finding the optimal trajactory for a high thrust orbital transfer to from a height of 6800km from the Earth Centre to 10000km.
+
+## Low Thrust
+
+![alt text](simulations/low_thrust_elements.png)
+Low Thrust showed similar behaviour to the High thrust image except with manay more revolutions which is to be expected as the thrust only allows for substantial increase of acceleration over a given amount of time. What is more interesting is observing the fuel consumption along with the behaviour of the flight eccentricity and flight path angle. the former remaining very circular for the entire transfer as well as the flight path angle.

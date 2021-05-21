@@ -14,13 +14,15 @@ import matplotlib.pyplot as plt
 
 class Orbit_Optimizer:
 
-    def __init__(self,u,t,dt,y):
+    def __init__(self,u,t,dt,y,body=dy.earth):
 
         self.u = u
         self.t = t
         self.dt = dt
         self.y = y    
-    
+        self.body =body
+
+        self.sol = self.solver(self.u,self.t,self.dt,self.y)
     @staticmethod
     def TwoBody(t,y,u):
         ''' 
@@ -192,16 +194,16 @@ class Orbit_Optimizer:
         
             self.kep_elem[i,:] = tb.RV2COE(self.rs[i,:], self.vs[i,:], mu=body['mu'])
 
-        return self.kep_elem
+        return self.kep_elem, self.sol[2]
 
-    def plot_kep_elements(ts,kep_elem,figsize=(16,8),title="Keplerian Elements"):
+    def plot_kep_elements(self,ts,kep_elem,figsize=(16,8),title="Keplerian Elements"):
 
         # Plotting the keplerian elements over time using the 'calculate_elements' function
         #Create multiple Axes and title
         fig,ax = plt.subplots(nrows = 2, ncols=2,figsize=figsize)
         fig.suptitle(title,fontsize=20)
         self.sol = self.solver(self.u,self.t,self.dt,self.y)
-        fp_angle = tb.flight_path_graph(sol)
+        fp_angle = tb.flight_path_graph(self.sol)
         xlabel='time (s)'
             
 
@@ -232,7 +234,7 @@ class Orbit_Optimizer:
         ax[1,0].set_xlabel(xlabel)
             
         
-        ax[1,1].plot(ts,sol[1],color='k')
+        ax[1,1].plot(ts,self.sol[1],color='k')
         ax[1,1].grid(True)
         ax[1,1].set_ylabel('Fuel Consumption (kg)')
         ax[1,1].set_xlabel(xlabel)
@@ -315,12 +317,35 @@ def main():
 
 
 if __name__ == '__main__':
+    body = dy.earth
+    kep_target=[9000,0,0]
+
+    # circular orbit
+    r = 6371+200
+    v = math.sqrt(body['mu']/r)
+    a_trans = (r+kep_target[0])/2
+
+
+    rf,vf = tb.COE2RV(body['mu'],a_trans,kep_target[2],0,0,0,0)
+
+    y = [r,0,0,0,4,0,300]
+    yf = [rf[0],0,0,0,vf[1],0]
+    t = 3600*4
+    dt = 100
+
+    u = np.array(
+    [0.00, .00, 0.00, 0.00,
+    0.001, 0.001, 0.1, .1,
+    .1, 9.76128628e-01, 1.79814754e-01, 2.06618409e-01])
     # Initiat Spacecraft
     sp = spacecraft()
     #Initiate Earths Gravity and J2
-    body = dy.earth
+    
 
-    main()
+    propagator = Orbit_Optimizer(u,t,dt,y)
+    kep, ts = propagator.calc_elem()
+    propagator.plot_kep_elements(ts,kep)
+
 
 # reassigning new control parameters
     
